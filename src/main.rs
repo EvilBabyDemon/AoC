@@ -2,19 +2,18 @@ use std::io::BufRead;
 use std::io::BufReader;
 use std::io; 
 use std::fs::File; 
-mod day_2;
+mod day_8;
 
 fn main() {
-    // --snip--
+    
     let filename = "input.txt";
     println!("In file {}", filename);
 
-
-    let lines = file_to_vec(filename.to_string());
-    let input = lines.ok().unwrap();
-
-    day_2::__day2(input);
-    
+    let input = file_to_vec(filename.to_string()).ok().unwrap();
+    day_8::__day8(input);
+    println!("Task 2:");
+    let input2 = file_to_vec(filename.to_string()).ok().unwrap();
+    day_8::__day8_2(input2);
     
 }
 
