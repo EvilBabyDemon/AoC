@@ -2,7 +2,7 @@ use std::io::BufRead;
 use std::io::BufReader;
 use std::io; 
 use std::fs::File; 
-mod day_8;
+mod day_9;
 
 fn main() {
     
@@ -10,10 +10,10 @@ fn main() {
     println!("In file {}", filename);
 
     let input = file_to_vec(filename.to_string()).ok().unwrap();
-    day_8::__day8(input);
+    day_9::__day9(input);
     println!("Task 2:");
     let input2 = file_to_vec(filename.to_string()).ok().unwrap();
-    day_8::__day8_2(input2);
+    day_9::__day9_2(input2);
     
 }
 
