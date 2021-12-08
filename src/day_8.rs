@@ -1,4 +1,3 @@
-
 pub fn __day8(input: std::vec::Vec<std::string::String>) { 
 
     let mut counter = 0;
@@ -12,9 +11,7 @@ pub fn __day8(input: std::vec::Vec<std::string::String>) {
             } 
         }
     }
-    
     println!("{}", counter);
-
 } 
 
 pub fn __day8_2(input: std::vec::Vec<std::string::String>) { 
@@ -24,118 +21,83 @@ pub fn __day8_2(input: std::vec::Vec<std::string::String>) {
         let line = input[i].split("|").collect::<Vec<&str>>();
         let mut unique = line[0].split_whitespace().collect::<Vec<&str>>();
         let number = line[1].split_whitespace().collect::<Vec<&str>>();
-
         unique.sort_by(|a, b| a.len().cmp(&b.len()));
         let mut chars:[char;7] = [' ';7];
 
         //a
         for x in unique[1].split("") {
-            if unique[0].contains(x) {
-                continue;
+            if !unique[0].contains(x) {
+                let y : Vec<char> = x.chars().collect();
+                chars[0] = y[0];
             }
-            let y : Vec<char>= x.chars().collect();
-            chars[0] = y[0];
         }
 
         //b and d
         let four = unique[2];
         let one: Vec<char>= unique[0].chars().collect();
         let four = &four.replace(&[one[0], one[1]][..], "");
-
+        let four_ch : Vec<char>= four.chars().collect();
         for i in 6..9 {
-            let y : Vec<char>= four.chars().collect();
-            if unique[i].contains(y[0]) && unique[i].contains(y[1]) {
+            if unique[i].contains(four_ch[0]) && unique[i].contains(four_ch[1]) {
                 continue;
             }
-            if unique[i].contains(y[0]) {
-                chars[1] = y[0];
-                chars[3] = y[1];
-            } else {
-                chars[1] = y[1];
-                chars[3] = y[0];
-            }
+            let con = unique[i].contains(four_ch[0]); 
+            chars[1] = if con {four_ch[0]} else {four_ch[1]};
+            chars[3] = if con {four_ch[1]} else {four_ch[0]};
             break;
         }
+
         //c and f
         for i in 6..9 {
             if unique[i].contains(one[0]) && unique[i].contains(one[1]) {
                 continue;
             }
-            if unique[i].contains(one[0]) {
-                chars[5] = one[0];
-                chars[2] = one[1];
-            } else {
-                chars[5] = one[1];
-                chars[2] = one[0];
-            }
+            let con = unique[i].contains(one[0]);
+            chars[5] = if con {one[0]} else {one[1]};
+            chars[2] = if con {one[1]} else {one[0]};
             break;
         }
-        //g and e
-        let five0 = unique[3];
-        let five1 = unique[4];
-        let five2 = unique[5];
-
-        let five0 = &five0.replace(&[chars[0], chars[1], chars[2], chars[3], chars[5]][..], "");
-        let five1 = &five1.replace(&[chars[0], chars[1], chars[2], chars[3], chars[5]][..], "");
-        let five2 = &five2.replace(&[chars[0], chars[1], chars[2], chars[3], chars[5]][..], "");
         
-        if five0.len() == 2 {
-            let g : Vec<char>= five1.chars().collect();
-            let five0 = &five0.replace(g[0], "");
-            let e : Vec<char>= five0.chars().collect();
-            chars[6] = g[0];
-            chars[4] = e[0];
-        } else if five2.len() == 2 {
-            let g : Vec<char>= five1.chars().collect();
-            let five2 = &five2.replace(g[0], "");
-            let e : Vec<char>= five2.chars().collect();
-            chars[6] = g[0];
-            chars[4] = e[0];
-        } else {
-            let g : Vec<char>= five0.chars().collect();
-            let five1 = &five1.replace(g[0], "");
-            let e : Vec<char>= five1.chars().collect();
-            chars[6] = g[0];
-            chars[4] = e[0];
-        }
-    
+        //g and e
+        let mut fives : [&str;3] = [&unique[3].replace(&[chars[0], chars[1], chars[2], chars[3], chars[5]][..], ""),
+        &unique[4].replace(&[chars[0], chars[1], chars[2], chars[3], chars[5]][..], ""),
+        &unique[5].replace(&[chars[0], chars[1], chars[2], chars[3], chars[5]][..], "")];
+        fives.sort_by(|a, b| a.len().cmp(&b.len()));
+        chars[6] = fives[0].chars().collect::<Vec<char>>()[0];
+        chars[4] = fives[2].replace(chars[6], "").chars().collect::<Vec<char>>()[0];
         
         let mut intnum : [u32;4] = [0;4];
         
         for i in 0..4 {
-            match number[i].len(){
-                2=> intnum[i] = 1,
-                3=> intnum[i] = 7,
-                4=> intnum[i] = 4,
+            intnum[i] = match number[i].len(){
+                2=> 1,
+                3=> 7,
+                4=> 4,
                 5=> 
                     if !number[i].contains(chars[2]){
-                        intnum[i] = 5;
+                        5
                     } else if !number[i].contains(chars[5]){
-                        intnum[i] = 2;
+                        2
                     } else {
-                        intnum[i] = 3;
+                        3
                     }
                 , 
                 6=> 
                     if !number[i].contains(chars[2]){
-                        intnum[i] = 6;
+                        6
                     } else if !number[i].contains(chars[3]){
-                        intnum[i] = 0;
+                        0
                     } else {
-                        intnum[i] = 9;
+                        9
                     }
                 ,
-                7=> intnum[i] = 8,
-                _=> print!("error"),
+                7=> 8,
+                _=> 10,
             }
         } 
-        let num =  intnum[0] * 1000 + intnum[1] * 100 + intnum[2] * 10 + intnum[3];
-        println!("{}", num);
-        counter += num;
+        counter += intnum[0] * 1000 + intnum[1] * 100 + intnum[2] * 10 + intnum[3];
     }
-    
     println!("{}", counter);
-
 } 
 
 /*Check for len 3 and 2 
