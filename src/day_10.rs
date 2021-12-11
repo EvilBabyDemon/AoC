@@ -14,10 +14,10 @@ pub fn __day10(input: std::vec::Vec<std::string::String>) {
                 let close = list.pop_front();
 
                 let hit = match close.unwrap() {
-                    '(' => if y.eq(&')') {true} else {false},
-                    '[' => if y.eq(&']') {true} else {false},
-                    '{' => if y.eq(&'}') {true} else {false},
-                    '<' => if y.eq(&'>') {true} else {false},
+                    '(' => y.eq(&')'),
+                    '[' => y.eq(&']'),
+                    '{' => y.eq(&'}'),
+                    '<' => y.eq(&'>'),
                     _ => false,
                 };
 
@@ -56,10 +56,10 @@ pub fn __day10_2(input: std::vec::Vec<std::string::String>) {
                 let close = list.pop_front();
                 
                 let hit = match close.unwrap() {
-                    '(' => if y.eq(&')') {true} else {false},
-                    '[' => if y.eq(&']') {true} else {false},
-                    '{' => if y.eq(&'}') {true} else {false},
-                    '<' => if y.eq(&'>') {true} else {false},
+                    '(' => y.eq(&')'),
+                    '[' => y.eq(&']'),
+                    '{' => y.eq(&'}'),
+                    '<' => y.eq(&'>'),
                     _ => false,
                 };
 
@@ -71,7 +71,6 @@ pub fn __day10_2(input: std::vec::Vec<std::string::String>) {
         }
         let mut count : u64 = 0;
         for y in list {
-            
             count *= 5;
             count += match y {
                 '(' => 1,
@@ -84,10 +83,6 @@ pub fn __day10_2(input: std::vec::Vec<std::string::String>) {
         counters.push(count);
     }
     counters.sort();
-
-    for x in &counters {
-        println!("{}", x);
-    }
 
     println!("{}, with len {}", counters[counters.len()/2], counters.len());
 } 
