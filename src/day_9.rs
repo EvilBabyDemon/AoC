@@ -59,17 +59,10 @@ pub fn counting(grid: &mut [[u32; 100]; 100], i : usize, j : usize) -> u32 {
     }
     grid[i][j] = 9;
     
-    1 
-    + 
-    if i != 0 { counting(grid, i-1, j) } else {0}
-    +
-    if j != 0 { counting(grid, i, j-1) } else {0}
-    + 
-    counting(grid, i, j+1)
-    +
-    counting(grid, i+1, j)
-    
-    
+    1 + if i != 0 { counting(grid, i-1, j) } else {0}
+      + if j != 0 { counting(grid, i, j-1) } else {0}
+      + counting(grid, i, j+1)
+      + counting(grid, i+1, j)
 }
 
 use rayon::prelude::*;
