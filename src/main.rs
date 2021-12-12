@@ -10,9 +10,9 @@ fn main() {
     let filename = "input.txt";
     println!("In file {}", filename);
 
-    let input = file_to_vec(filename.to_string()).ok().unwrap();
-    day_12::__day12(input);
-    println!("Task 2:");
+    //let input = file_to_vec(filename.to_string()).ok().unwrap();
+    //day_12::__day12(input);
+    //println!("Task 2:");
     let input2 = file_to_vec(filename.to_string()).ok().unwrap();
     day_12::__day12_2(input2);
     

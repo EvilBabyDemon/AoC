@@ -1,9 +1,6 @@
 use std::collections::HashMap;
 use std::collections::HashSet;
 
-pub fn __day12(__input: std::vec::Vec<std::string::String>) { 
-
-}
 
 pub fn __day12_2(input: std::vec::Vec<std::string::String>) { 
     
@@ -21,10 +18,10 @@ pub fn __day12_2(input: std::vec::Vec<std::string::String>) {
     
     println!("Part 1: {}", paths(&nodes, &visited, "start", true));
     println!("Part 2: {}", paths(&nodes, &visited, "start", false));
-    
+
 }
 
-fn paths (nodes: &HashMap<&str, std::vec::Vec<&str>>,  visited : &std::collections::HashSet<&str>, atm : &str, twice : bool) -> u32 {
+fn paths (nodes: &HashMap<&str, std::vec::Vec<&str>>,  visited : &std::collections::HashSet<&str>, atm : &str, twice : bool) -> u16 {
     if atm.eq("end") {
         return 1;
     }
