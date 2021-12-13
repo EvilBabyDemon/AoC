@@ -33,9 +33,8 @@ pub fn __day13_2(input: std::vec::Vec<std::string::String>) {
         } else {
             let num = x.split(",").map(|s| s.parse::<u32>().unwrap()).collect::<Vec<u32>>();
             grid.push((num[0], num[1]));
-        }           
+        }
     }
-
     let mut arr : [[&str;10];50] = [[".";10];50];
     for x in grid {
         arr[x.0 as usize][x.1 as usize] = "#";
