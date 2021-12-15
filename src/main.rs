@@ -3,7 +3,7 @@ use std::io::BufRead;
 use std::io::BufReader;
 use std::io; 
 use std::fs::File; 
-mod day_14;
+mod day_15;
 
 fn main() {
     let now = SystemTime::now();
@@ -11,10 +11,10 @@ fn main() {
     println!("In file {}", filename);
 
     let input = file_to_vec(filename.to_string()).ok().unwrap();
-    day_14::__day14(input);
+    day_15::__day15(input);
     println!("Task 2:");
     let input2 = file_to_vec(filename.to_string()).ok().unwrap();
-    day_14::__day14_2(input2);
+    day_15::__day15_2(input2);
     
     let time = now.elapsed().unwrap();
     println!("Time: {}", time.as_micros());
